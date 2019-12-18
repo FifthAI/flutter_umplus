@@ -15,13 +15,11 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
 
-/** FlutterUmplusPlugin */
 public class FlutterUmplusPlugin implements MethodCallHandler {
   private Activity activity;
 
   private FlutterUmplusPlugin(Activity activity) { this.activity = activity; }
 
-  /** Plugin registration. */
   public static void registerWith(Registrar registrar) {
     final MethodChannel channel =
         new MethodChannel(registrar.messenger(), "ygmpkk/flutter_umplus");
@@ -70,7 +68,12 @@ public class FlutterUmplusPlugin implements MethodCallHandler {
     Boolean reportCrash = (Boolean)call.argument("reportCrash");
 
     Log.d("UM", "initSetup: " + appKey);
-//    Log.d("UM", "channel: " +  getMetadata(activity, "INSTALL_CHANNEL"));
+    Log.d("UM", "channel: " +  getMetadata(activity, "MARKET_CHANNEL_VALUE"));
+    channel = getMetadata(activity, "MARKET_CHANNEL_VALUE");
+
+//    if(channel==null || "".equals(channel)){
+//      channel = getMetadata(activity, "MARKET_CHANNEL_VALUE");
+//    }
 
     UMConfigure.setLogEnabled(logEnable);
     UMConfigure.init(activity, appKey, channel, UMConfigure.DEVICE_TYPE_PHONE,
