@@ -70,6 +70,7 @@ public class FlutterUmplusPlugin implements MethodCallHandler {
     Log.d("UM", "initSetup: " + appKey);
     Log.d("UM", "channel: " +  getMetadata(activity, "MARKET_CHANNEL_VALUE"));
     channel = getMetadata(activity, "MARKET_CHANNEL_VALUE");
+    appKey = getMetadata(activity, "umAppKey");
 
 //    if(channel==null || "".equals(channel)){
 //      channel = getMetadata(activity, "MARKET_CHANNEL_VALUE");

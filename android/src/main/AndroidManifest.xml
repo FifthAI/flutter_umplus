@@ -5,5 +5,8 @@
         <meta-data
             android:name="MARKET_CHANNEL_VALUE"
             android:value="${MARKET_CHANNEL_VALUE}" />
+        <meta-data
+            android:name="umAppKey"
+            android:value="${umAppKey}" />
     </application>
 </manifest>
