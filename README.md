@@ -1,3 +1,10 @@
+修改了app Key、与channel的获取方式
+* android 下 从manifest的matedata获取。配置是用gradle的占位符方式复制过去
+* IOS 下 从info.plist获取
+
+- umAppKey
+- MARKET_CHANNEL_VALUE
+
 # flutter_umplus
 
 一个简单的友盟 umeng app+ 统计，其他几个库的坑都踩过了，吸收了它们的优点，建议大家用这个库。

@@ -37,9 +37,13 @@
 }
 
 - (void)initSetup:(FlutterMethodCall *)call result:(FlutterResult)result {
-  NSString *appKey = call.arguments[@"key"];
-  NSString *channel = call.arguments[@"channel"];
-  
+  // NSString *appKey = call.arguments[@"key"];
+  // NSString *channel = call.arguments[@"channel"];
+    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
+    NSMutableDictionary *infoDict = [NSMutableDictionary dictionaryWithContentsOfFile:bundlePath];
+    NSString *appKey = [infoDict objectForKey:@"umAppKey"];
+    NSString *channel = [infoDict objectForKey:@"MARKET_CHANNEL_VALUE"];
+
   BOOL logEnable = [call.arguments[@"logEnable"] boolValue];
   BOOL encrypt = [call.arguments[@"encrypt"] boolValue];
   BOOL reportCrash = [call.arguments[@"reportCrash"] boolValue];
