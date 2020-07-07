@@ -17,7 +17,6 @@ A new flutter plugin project.
   s.dependency 'Flutter'
   s.dependency 'UMCCommon'
   s.dependency 'UMCCommonLog'
-  s.dependency 'UMCAnalytics'
   s.dependency 'UMCErrorCatch'
   s.static_framework = true
 
