@@ -6,6 +6,7 @@ buildscript {
         google()
         jcenter()
         maven { url 'https://dl.bintray.com/umsdk/release' }
+
     }
 
     dependencies {
@@ -36,7 +37,9 @@ android {
     }
 
     dependencies {
-        api 'com.umeng.umsdk:analytics:8.0.2'
-        api 'com.umeng.umsdk:common:2.0.2'
+//        api 'com.umeng.umsdk:analytics:8.0.2'
+        implementation  'com.umeng.umsdk:common:9.3.0' // (必选)版本号
+        implementation  'com.umeng.umsdk:asms:1.1.3' // asms包依赖(必选)
+        implementation 'com.umeng.umsdk:crash:0.0.4' // native crash包依赖(必选)
     }
 }

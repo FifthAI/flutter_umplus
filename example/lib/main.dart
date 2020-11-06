@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_umplus/flutter_umplus.dart';
 
@@ -45,11 +45,8 @@ class _MyAppState extends State<MyApp> {
   initUMeng() {
     // channel 可设置为空
     FlutterUmplus.init(
-      'Your umeng appkey',
-      channel: 'Your channel',
       reportCrash: false,
       logEnable: true,
-      encrypt: true,
     );
 
     FlutterUmplus.beginPageView('demo');

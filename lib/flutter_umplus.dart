@@ -10,21 +10,17 @@ class FlutterUmplus {
     return version;
   }
 
-  static Future<bool> init(
-    String key, {
-    String channel,
-    bool reportCrash = true,
-    bool encrypt = false,
+  
+  /// [reportCrash]->加密启用
+  /// [logEnable]->打开log
+  static Future<bool> init({
     bool logEnable = false,
+    bool reportCrash = true,
   }) {
-    Map<String, dynamic> args = {"key": key, "channel": channel ?? ''};
+    Map<String, dynamic> args = {};
 
     if (reportCrash != null) {
       args["reportCrash"] = reportCrash;
-    }
-
-    if (encrypt != null) {
-      args["encrypt"] = encrypt;
     }
 
     if (logEnable != null) {
@@ -32,6 +28,7 @@ class FlutterUmplus {
     }
 
     _channel.invokeMethod("init", args);
+    
     return new Future.value(true);
   }
 
@@ -48,11 +45,18 @@ class FlutterUmplus {
   }
 
   /// 登陆统计
-  /// [id]
-  /// [interval]
-  static Future<Null> logPageView(String name, {int seconds}) async {
-    _channel.invokeMethod("logPageView", {"name": name, seconds: seconds});
+  /// [userId]
+  static Future<Null> loginOnAction({String userId})async {
+    _channel.invokeMethod("loginOnAction", {"userId": userId});
   }
+
+
+  /// 登出统计
+  /// [userId]
+  static Future<Null> loginOffAction()async {
+    _channel.invokeMethod("loginOffAction", {});
+  }
+  
 
   /// 计数事件统计
   /// [eventId]  当前统计的事件ID

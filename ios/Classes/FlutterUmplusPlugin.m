@@ -22,9 +22,11 @@
         stringByAppendingString:[[UIDevice currentDevice] systemVersion]]);
   } else if ([@"init" isEqualToString:call.method]) {
     [self initSetup:call result:result];
-  } else if ([@"logPageView" isEqualToString:call.method]) {
-    [self logPageView:call result:result];
-  } else if ([@"beginPageView" isEqualToString:call.method]) {
+  } else if ([@"loginOnAction" isEqualToString:call.method]) {
+    [self loginOnAction:call result:result];
+  }else if ([@"loginOffAction" isEqualToString:call.method]) {
+      [self loginOffAction:call result:result];
+    } else if ([@"beginPageView" isEqualToString:call.method]) {
     [self beginPageView:call result:result];
   } else if ([@"endPageView" isEqualToString:call.method]) {
     [self endPageView:call result:result];
@@ -36,30 +38,36 @@
   }
 }
 
+
 - (void)initSetup:(FlutterMethodCall *)call result:(FlutterResult)result {
-  // NSString *appKey = call.arguments[@"key"];
-  // NSString *channel = call.arguments[@"channel"];
     NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"];
     NSMutableDictionary *infoDict = [NSMutableDictionary dictionaryWithContentsOfFile:bundlePath];
     NSString *appKey = [infoDict objectForKey:@"umAppKey"];
     NSString *channel = [infoDict objectForKey:@"MARKET_CHANNEL_VALUE"];
+    
+    
+    NSLog(@"集成测试的deviceID-initSetup-appKey:%@", appKey);
+    NSLog(@"集成测试的deviceID-initSetup-channel:%@", channel);
 
+
+    
   BOOL logEnable = [call.arguments[@"logEnable"] boolValue];
-  BOOL encrypt = [call.arguments[@"encrypt"] boolValue];
   BOOL reportCrash = [call.arguments[@"reportCrash"] boolValue];
 
+    
   [UMCommonLogManager setUpUMCommonLogManager];
-
-  [UMConfigure setLogEnabled:YES];
-  [UMConfigure setEncryptEnabled:encrypt];
+    
   NSString *deviceID = [UMConfigure deviceIDForIntegration];
   NSLog(@"集成测试的deviceID:%@", deviceID);
 
   [UMConfigure initWithAppkey:appKey channel:channel];
 
+  [UMConfigure setLogEnabled:logEnable];
+
   [MobClick setCrashReportEnabled:reportCrash];
 
   [UMErrorCatch initErrorCatch];
+    
   result(nil);
 }
 
@@ -82,14 +90,21 @@
   result(nil);
 }
 
-- (void)logPageView:(FlutterMethodCall *)call result:(FlutterResult)result {
-  NSString *name = call.arguments[@"name"];
-  int seconds = [call.arguments[@"seconds"] intValue];
+- (void)loginOnAction:(FlutterMethodCall *)call result:(FlutterResult)result {
+  NSString *userId = call.arguments[@"userId"];
 
-  NSLog(@"logPageView: %@", name);
-  NSLog(@"logPageView: %d", seconds);
+  NSLog(@"loginOnAction: %@", userId);
 
-  [MobClick logPageView:name seconds:seconds];
+  [MobClick profileSignInWithPUID:userId ];
+
+  result(nil);
+}
+
+- (void)loginOffAction:(FlutterMethodCall *)call result:(FlutterResult)result {
+
+  NSLog(@"profileSignOff");
+
+  [MobClick profileSignOff];
 
   result(nil);
 }
